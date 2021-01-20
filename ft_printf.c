@@ -48,11 +48,9 @@ static int		ft_all_string(const char *s, va_list ap, t_print *s_pr, int r)
 			i++;
 			r += ft_parce_arg(s_pr, s, ap, &i);
 			if (s_pr->error < 0)
-			{
-				free(s_pr);
 				return (++r);
-			}
 			free(s_pr);
+			s_pr = NULL;
 		}
 		else
 		{
@@ -73,6 +71,8 @@ int				ft_printf(const char *s, ...)
 	r = -1;
 	va_start(ap, s);
 	r = ft_all_string(s, ap, s_pr, r);
+	if (s_pr)
+		free(s_pr);
 	va_end(ap);
 	return (r);
 }
