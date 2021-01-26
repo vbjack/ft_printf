@@ -6,7 +6,7 @@
 /*   By: mtwitch <mtwitch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 11:25:59 by andrey            #+#    #+#             */
-/*   Updated: 2021/01/18 16:09:02 by mtwitch          ###   ########.fr       */
+/*   Updated: 2021/01/26 13:33:19 by mtwitch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,8 @@ static t_print	*ft_fill_struct(void)
 	return (s_pr);
 }
 
-static int		ft_all_string(const char *s, va_list ap, t_print *s_pr, int r)
+static int		ft_all_string(const char *s, va_list ap, t_print *s_pr, int r, int i)
 {
-	int	i;
-
-	i = 0;
 	while (s[i])
 	{
 		if (s[i] == '%')
@@ -48,7 +45,10 @@ static int		ft_all_string(const char *s, va_list ap, t_print *s_pr, int r)
 			i++;
 			r += ft_parce_arg(s_pr, s, ap, &i);
 			if (s_pr->error < 0)
+			{
+				free(s_pr);
 				return (++r);
+			}
 			free(s_pr);
 			s_pr = NULL;
 		}
@@ -67,12 +67,12 @@ int				ft_printf(const char *s, ...)
 	va_list	ap;
 	t_print	*s_pr;
 	int		r;
+	int		i;
 
+	i = 0;
 	r = -1;
 	va_start(ap, s);
-	r = ft_all_string(s, ap, s_pr, r);
-	if (s_pr)
-		free(s_pr);
+	r = ft_all_string(s, ap, s_pr, r, i);
 	va_end(ap);
 	return (r);
 }
