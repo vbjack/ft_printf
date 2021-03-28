@@ -6,4 +6,5 @@
 </h2><b>Установка</b></h2>
 
 <p>1.  <code>git clone https://github.com/vbjack/ft_printf.git</code><br>
-2. <code>make</code>. Создается файл <code>libftprintf.a</code>, который можно использовать при компиляции 
+2. Перейти в каталог ft_printf: <code>cd ft_printf</code><br>
+3. <code>make</code>. Создается файл <code>libftprintf.a</code>, который можно использовать при компиляции 
